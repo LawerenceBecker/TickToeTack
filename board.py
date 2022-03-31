@@ -19,7 +19,9 @@ class Board():
         self.playerTurn = True
         self.win = False
         self.winner = ''
-        self.turnNum = 1
+        self.playerWin = 0
+        self.tieWin = 0
+        self.cpuWin = 0
 
     def printBoard(self):
         row = 0

@@ -35,6 +35,9 @@ class Game:
         AreaInput(self.sprites, 95, 375, gameBoard, 6)
         AreaInput(self.sprites, 235, 375, gameBoard, 7)
         AreaInput(self.sprites, 375, 375, gameBoard, 8)
+
+        self.font = pg.font.Font(None, 36)
+        
     
     def run(self):
         while True:
@@ -64,12 +67,34 @@ class Game:
             backdrop = pg.Rect(90, 90, 420, 420)
             pg.draw.rect(self.screen, 'dark grey', backdrop)
             self.sprites.draw(self.screen)
+
+            playerWinTxt = self.font.render(f'Player', False, 'black')
+            self.screen.blit(playerWinTxt, [(95/2)-(playerWinTxt.get_width()/2),130])
+
+            playerWinTxt = self.font.render(f'{gameBoard.playerWin}', False, 'black')
+            self.screen.blit(playerWinTxt, [(95/2)-(playerWinTxt.get_width()/2),155])
+
+            
+            tieWinTxt = self.font.render(f'Tie', False, 'black')
+            self.screen.blit(tieWinTxt, [(95/2)-(tieWinTxt.get_width()/2),270])
+
+            tieWinTxt = self.font.render(f'{gameBoard.tieWin}', False, 'black')
+            self.screen.blit(tieWinTxt, [(95/2)-(tieWinTxt.get_width()/2),295])
+
+            
+            cpuWinTxt = self.font.render(f'CPU', False, 'black')
+            self.screen.blit(cpuWinTxt, [(95/2)-(cpuWinTxt.get_width()/2),410])
+
+            cpuWinTxt = self.font.render(f'{gameBoard.cpuWin}', False, 'black')
+            self.screen.blit(cpuWinTxt, [(95/2)-(cpuWinTxt.get_width()/2),435])
             
             pg.display.update()
             self.clock.tick(60)
 
             if gameBoard.win == True:
                 print(f'{gameBoard.winner} won the game!')
+                if gameBoard.winner == gameBoard.player: gameBoard.playerWin += 1
+                if gameBoard.winner == gameBoard.cpu: gameBoard.cpuWin += 1
                 choice = input('Play again? (y/n) \n> ')
                 if choice.lower() == 'y':
                     gameBoard.win = False
@@ -98,6 +123,7 @@ class Game:
         
             if tie == True:
                 print('\nThe game is tied')
+                gameBoard.tieWin += 1
                 choice = input('Play again? (y/n) \n> ')
                 if choice.lower() == 'y':
                     gameBoard.win = False
@@ -121,7 +147,6 @@ class Game:
             elif gameBoard.playerTurn == False:
                 cpu.pickMove(gameBoard)
                 gameBoard.playerTurn = True
-                gameBoard.turnNum += 1
                 for _sprite in self.sprites:
                     if gameBoard.hashBoard[_sprite.hashIndex] != ' ':
                         _sprite.filled = True
