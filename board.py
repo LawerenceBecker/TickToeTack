@@ -1,3 +1,4 @@
+
 class Board():
     def __init__(self):
         print('### input all commands as 0,0 0,1 1,0 ...etc ###')
@@ -40,19 +41,8 @@ class Board():
 
     def addInput(self, input, mark):
 
-        if  len(input) != 3 or int(input[0]) >= 3 or int(input[2]) >= 3:
-            print('Not possiable input')
-            return
-
-        toIndex = 0
-        toIndex += int(input[0])
-        
-        if int(input[2]) == 0: pass
-        elif int(input[2]) == 1: toIndex += 3
-        elif int(input[2]) == 2: toIndex += 6
-
-        if self.hashBoard[toIndex] == ' ':
-            self.hashBoard[toIndex] = mark
+        if self.hashBoard[input] == ' ':
+            self.hashBoard[input] = mark
             self.playerTurn = False
             self.checkWins()
         else:
