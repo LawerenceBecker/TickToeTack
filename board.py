@@ -8,13 +8,8 @@ class Board():
             ' ', ' ', ' ',
             ' ', ' ', ' ',]
 
-        choice = input('Xs or Os? (x/o) \n> ')
-        if choice.lower() == 'x':
-            self.player = 'x'
-            self.cpu = 'o'
-        elif choice.lower() == 'o':
-            self.player = 'o'
-            self.cpu = 'x'
+        self.player = ''
+        self.cpu = ''
 
         self.playerTurn = True
         self.win = False
