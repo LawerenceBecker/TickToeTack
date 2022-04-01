@@ -39,12 +39,13 @@ class AreaInput(pg.sprite.Sprite):
             self.board.addInput(self.hashIndex, self.board.player)
 
 class Buttons(pg.sprite.Sprite):
-    def __init__(self, groups, x, y, text, board, cpu):
+    def __init__(self, groups, x, y, text, board, cpu, game=None):
         super().__init__(groups)
 
         self.image = pg.Surface((220,110))
         self.rect = self.image.get_rect(topleft = (x, y))
         self.sprites = groups
+        self.game = game
 
         self.text = text
         self.board = board
@@ -78,20 +79,23 @@ class Buttons(pg.sprite.Sprite):
         if self.text == 'x':
             self.board.player = 'x'
             self.board.cpu = 'o'
-        elif self.text == 'Yes':
-            self.board.win = False
-            self.board.playerTurn = True
-            self.board.turnNum = 1
-            self.board.hashBoard = [
-                ' ', ' ', ' ',
-                ' ', ' ', ' ',
-                ' ', ' ', ' ',]
-            self.cpu.firstTrun = True
-
+        elif self.text == 'Yes' or self.text == 'Yes ':
+            self.game.restart = False
             for _sprite in self.sprites:
-                if hasattr(_sprite, 'filled'):
-                    _sprite.filled = False
-        elif self.text == 'No':
+                _sprite.kill()
+            AreaInput(self.sprites, 95, 95, self.board, 0)
+            AreaInput(self.sprites, 235, 95, self.board, 1)
+            AreaInput(self.sprites, 375, 95, self.board, 2)
+    
+            AreaInput(self.sprites, 95, 235, self.board, 3)
+            AreaInput(self.sprites, 235, 235, self.board, 4)
+            AreaInput(self.sprites, 375, 235, self.board, 5)
+    
+            AreaInput(self.sprites, 95, 375, self.board, 6)
+            AreaInput(self.sprites, 235, 375, self.board, 7)
+            AreaInput(self.sprites, 375, 375, self.board, 8)
+
+        elif self.text == 'No' or self.text == 'No ':
             pg.quit()
         else:
             self.board.player = 'o'

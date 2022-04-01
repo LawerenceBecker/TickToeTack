@@ -102,23 +102,6 @@ class Game:
                 ])
                 self.sprites.draw(self.screen)
 
-                for _sprite in self.sprites:
-                    if _sprite.done == True and _sprite.text == 'Yes':
-                        self.restart = False
-                        for _sprite in self.sprites:
-                            _sprite.kill()
-                        AreaInput(self.sprites, 95, 95, gameBoard, 0)
-                        AreaInput(self.sprites, 235, 95, gameBoard, 1)
-                        AreaInput(self.sprites, 375, 95, gameBoard, 2)
-                
-                        AreaInput(self.sprites, 95, 235, gameBoard, 3)
-                        AreaInput(self.sprites, 235, 235, gameBoard, 4)
-                        AreaInput(self.sprites, 375, 235, gameBoard, 5)
-                
-                        AreaInput(self.sprites, 95, 375, gameBoard, 6)
-                        AreaInput(self.sprites, 235, 375, gameBoard, 7)
-                        AreaInput(self.sprites, 375, 375, gameBoard, 8)
-
                 pg.display.update()
                 self.clock.tick(60)
             
@@ -156,14 +139,26 @@ class Game:
                 self.clock.tick(60)
     
                 if gameBoard.win == True:
+                    gameBoard.win = False
+                    gameBoard.playerTurn = True
+                    gameBoard.turnNum = 1
+                    gameBoard.hashBoard = [
+                        ' ', ' ', ' ',
+                        ' ', ' ', ' ',
+                        ' ', ' ', ' ',]
+                    cpu.firstTrun = True
+
+                    for _sprite in self.sprites:
+                        if hasattr(_sprite, 'filled'):
+                            _sprite.filled = False
                     if gameBoard.winner == gameBoard.player: gameBoard.playerWin += 1
                     if gameBoard.winner == gameBoard.cpu: gameBoard.cpuWin += 1
                     self.restart = True
                     for _sprite in self.sprites:
                         _sprite.kill()
                     self.message = f'Player {gameBoard.winner} Won!'
-                    Buttons(self.sprites, (self.screen.get_width()/2)-110, 150, 'Yes', gameBoard, cpu)
-                    Buttons(self.sprites, (self.screen.get_width()/2)-110, 370, 'No', gameBoard, cpu)
+                    Buttons(self.sprites, (self.screen.get_width()/2)-110, 150, 'Yes', gameBoard, cpu, game)
+                    Buttons(self.sprites, (self.screen.get_width()/2)-110, 370, 'No', gameBoard, cpu, game)
                     # choice = input('Play again? (y/n) \n> ')
                     # if choice.lower() == 'y':
     
@@ -180,14 +175,26 @@ class Game:
                         tie = True
             
                 if tie == True:
-                    print('\nThe game is tied')
+                    gameBoard.win = False
+                    gameBoard.playerTurn = True
+                    gameBoard.turnNum = 1
+                    gameBoard.hashBoard = [
+                        ' ', ' ', ' ',
+                        ' ', ' ', ' ',
+                        ' ', ' ', ' ',]
+                    cpu.firstTrun = True
+
+                    for _sprite in self.sprites:
+                        if hasattr(_sprite, 'filled'):
+                            _sprite.filled = False
                     gameBoard.tieWin += 1
                     self.restart = True
+                    tie = False
                     for _sprite in self.sprites:
                         _sprite.kill()
                     self.message = 'Tied'
-                    Buttons(self.sprites, (self.screen.get_width()/2)-110, 150, 'Yes', gameBoard, cpu)
-                    Buttons(self.sprites, (self.screen.get_width()/2)-110, 370, 'No', gameBoard, cpu)
+                    Buttons(self.sprites, (self.screen.get_width()/2)-110, 150, 'Yes ', gameBoard, cpu, game)
+                    Buttons(self.sprites, (self.screen.get_width()/2)-110, 370, 'No ', gameBoard, cpu, game)
                     
                 elif gameBoard.playerTurn == False:
                     cpu.pickMove(gameBoard)

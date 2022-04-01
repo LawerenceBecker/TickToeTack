@@ -6,12 +6,12 @@ class CPU:
     def pickMove(self, board):
         if self.firstTrun == True: self.turn1(board)
         else:
-            cWinSoon = self.checkForSelfWin(board)
+            cWinSoon = self.checkForWin(board, board.player, board.cpu)
             if cWinSoon[0] == True:
                     
                 board.addInput(cWinSoon[1], board.cpu)
             else:
-                pWinSoon = self.checkForPWin(board)
+                pWinSoon = self.checkForWin(board, board.cpu, board.player)
                 if pWinSoon[0] == True:
                 
                     board.addInput(pWinSoon[1], board.cpu)
@@ -45,194 +45,100 @@ class CPU:
                                 board.addInput(i, board.cpu)
                                 break
 
-    def checkForSelfWin(self, board):
+    def checkForWin(self, board, oMark, sMark):
 
         ## Horizontal
-        if board.hashBoard[0] == board.hashBoard[1] and board.hashBoard[0] == board.cpu:
-            if board.hashBoard[2] != board.player:
+        if board.hashBoard[0] == board.hashBoard[1] and board.hashBoard[0] == sMark:
+            if board.hashBoard[2] != oMark:
                 return True, 2
-        if board.hashBoard[3] == board.hashBoard[4] and board.hashBoard[3] == board.cpu:
-            if board.hashBoard[5] != board.player:
+        if board.hashBoard[3] == board.hashBoard[4] and board.hashBoard[3] == sMark:
+            if board.hashBoard[5] != oMark:
                 return True, 5
-        if board.hashBoard[6] == board.hashBoard[7] and board.hashBoard[6] == board.cpu:
-            if board.hashBoard[8] != board.player:
+        if board.hashBoard[6] == board.hashBoard[7] and board.hashBoard[6] == sMark:
+            if board.hashBoard[8] != oMark:
                 return True, 8
 
         ## Horizontal Inverse
-        if board.hashBoard[2] == board.hashBoard[1] and board.hashBoard[2] == board.cpu:
-            if board.hashBoard[0] != board.player:
+        if board.hashBoard[2] == board.hashBoard[1] and board.hashBoard[2] == sMark:
+            if board.hashBoard[0] != oMark:
                 return True, 0
-        if board.hashBoard[5] == board.hashBoard[4] and board.hashBoard[5] == board.cpu:
-            if board.hashBoard[3] != board.player:
+        if board.hashBoard[5] == board.hashBoard[4] and board.hashBoard[5] == sMark:
+            if board.hashBoard[3] != oMark:
                 return True, 3
-        if board.hashBoard[8] == board.hashBoard[7] and board.hashBoard[8] == board.cpu:
-            if board.hashBoard[6] != board.player:
+        if board.hashBoard[8] == board.hashBoard[7] and board.hashBoard[8] == sMark:
+            if board.hashBoard[6] != oMark:
                 return True, 6
 
         ## Horizontal Middle
-        if board.hashBoard[0] == board.hashBoard[2] and board.hashBoard[0] == board.cpu:
-            if board.hashBoard[1] != board.player:
+        if board.hashBoard[0] == board.hashBoard[2] and board.hashBoard[0] == sMark:
+            if board.hashBoard[1] != oMark:
                 return True, 1
-        if board.hashBoard[3] == board.hashBoard[5] and board.hashBoard[3] == board.cpu:
-            if board.hashBoard[4] != board.player:
+        if board.hashBoard[3] == board.hashBoard[5] and board.hashBoard[3] == sMark:
+            if board.hashBoard[4] != oMark:
                 return True, 4
-        if board.hashBoard[6] == board.hashBoard[8] and board.hashBoard[6] == board.cpu:
-            if board.hashBoard[7] != board.player:
+        if board.hashBoard[6] == board.hashBoard[8] and board.hashBoard[6] == sMark:
+            if board.hashBoard[7] != oMark:
                 return True, 7
 
         ## Vertical
-        if board.hashBoard[0] == board.hashBoard[3] and board.hashBoard[0] == board.cpu:
-            if board.hashBoard[6] != board.player:
+        if board.hashBoard[0] == board.hashBoard[3] and board.hashBoard[0] == sMark:
+            if board.hashBoard[6] != oMark:
                 return True, 6
-        if board.hashBoard[1] == board.hashBoard[4] and board.hashBoard[1] == board.cpu:
-            if board.hashBoard[7] != board.player:
+        if board.hashBoard[1] == board.hashBoard[4] and board.hashBoard[1] == sMark:
+            if board.hashBoard[7] != oMark:
                 return True, 7
-        if board.hashBoard[2] == board.hashBoard[5] and board.hashBoard[2] == board.cpu:
-            if board.hashBoard[8] != board.player:
+        if board.hashBoard[2] == board.hashBoard[5] and board.hashBoard[2] == sMark:
+            if board.hashBoard[8] != oMark:
                 return True, 8
 
         ## Vertical Inverse
-        if board.hashBoard[6] == board.hashBoard[3] and board.hashBoard[6] == board.cpu:
-            if board.hashBoard[0] != board.player:
+        if board.hashBoard[6] == board.hashBoard[3] and board.hashBoard[6] == sMark:
+            if board.hashBoard[0] != oMark:
                 return True, 0
-        if board.hashBoard[7] == board.hashBoard[4] and board.hashBoard[7] == board.cpu:
-            if board.hashBoard[1] != board.player:
+        if board.hashBoard[7] == board.hashBoard[4] and board.hashBoard[7] == sMark:
+            if board.hashBoard[1] != oMark:
                 return True, 1
-        if board.hashBoard[8] == board.hashBoard[5] and board.hashBoard[8] == board.cpu:
-            if board.hashBoard[2] != board.player:
+        if board.hashBoard[8] == board.hashBoard[5] and board.hashBoard[8] == sMark:
+            if board.hashBoard[2] != oMark:
                 return True, 2
                 
         ## Vertical Middle
-        if board.hashBoard[0] == board.hashBoard[6] and board.hashBoard[0] == board.cpu:
-            if board.hashBoard[3] != board.player:
+        if board.hashBoard[0] == board.hashBoard[6] and board.hashBoard[0] == sMark:
+            if board.hashBoard[3] != oMark:
                 return True, 3
-        if board.hashBoard[1] == board.hashBoard[7] and board.hashBoard[1] == board.cpu:
-            if board.hashBoard[4] != board.player:
+        if board.hashBoard[1] == board.hashBoard[7] and board.hashBoard[1] == sMark:
+            if board.hashBoard[4] != oMark:
                 return True, 4
-        if board.hashBoard[2] == board.hashBoard[8] and board.hashBoard[2] == board.cpu:
-            if board.hashBoard[5] != board.player:
+        if board.hashBoard[2] == board.hashBoard[8] and board.hashBoard[2] == sMark:
+            if board.hashBoard[5] != oMark:
                 return True, 5
 
         ## Diagonal
-        if board.hashBoard[0] == board.hashBoard[4] and board.hashBoard[0] == board.cpu:
-            if board.hashBoard[8] != board.player:
+        if board.hashBoard[0] == board.hashBoard[4] and board.hashBoard[0] == sMark:
+            if board.hashBoard[8] != oMark:
                 return True, 8
-        if board.hashBoard[2] == board.hashBoard[4] and board.hashBoard[2] == board.cpu:
-            if board.hashBoard[6] != board.player:            
+        if board.hashBoard[2] == board.hashBoard[4] and board.hashBoard[2] == sMark:
+            if board.hashBoard[6] != oMark:            
                 return True, 6
 
         ## Diagonal Inverse
-        if board.hashBoard[8] == board.hashBoard[4] and board.hashBoard[8] == board.cpu:
-            if board.hashBoard[0] != board.player:
+        if board.hashBoard[8] == board.hashBoard[4] and board.hashBoard[8] == sMark:
+            if board.hashBoard[0] != oMark:
                 return True, 0
-        if board.hashBoard[6] == board.hashBoard[4] and board.hashBoard[6] == board.cpu:
-            if board.hashBoard[2] != board.player:            
+        if board.hashBoard[6] == board.hashBoard[4] and board.hashBoard[6] == sMark:
+            if board.hashBoard[2] != oMark:            
                 return True, 2
 
         ## Diagonal Middle
-        if board.hashBoard[0] == board.hashBoard[8] and board.hashBoard[0] == board.cpu:
-            if board.hashBoard[4] != board.player:
+        if board.hashBoard[0] == board.hashBoard[8] and board.hashBoard[0] == sMark:
+            if board.hashBoard[4] != oMark:
                 return True, 4
-        if board.hashBoard[2] == board.hashBoard[6] and board.hashBoard[2] == board.cpu:
-            if board.hashBoard[4] != board.player:            
+        if board.hashBoard[2] == board.hashBoard[6] and board.hashBoard[2] == sMark:
+            if board.hashBoard[4] != oMark:            
                 return True, 4
 
         return False, ''
         
-    def checkForPWin(self, board):
-        
-        ## Horizontal
-        if board.hashBoard[0] == board.hashBoard[1] and board.hashBoard[0] == board.player:
-            if board.hashBoard[2] != board.cpu:
-                return True, 2
-        if board.hashBoard[3] == board.hashBoard[4] and board.hashBoard[3] == board.player:
-            if board.hashBoard[5] != board.cpu:
-                return True, 5
-        if board.hashBoard[6] == board.hashBoard[7] and board.hashBoard[6] == board.player:
-            if board.hashBoard[8] != board.cpu:
-                return True, 8
-
-        ## Horizontal Inverse
-        if board.hashBoard[2] == board.hashBoard[1] and board.hashBoard[2] == board.player:
-            if board.hashBoard[0] != board.cpu:
-                return True, 0
-        if board.hashBoard[5] == board.hashBoard[4] and board.hashBoard[5] == board.player:
-            if board.hashBoard[3] != board.cpu:
-                return True, 3
-        if board.hashBoard[8] == board.hashBoard[7] and board.hashBoard[8] == board.player:
-            if board.hashBoard[6] != board.cpu:
-                return True, 6
-
-        ## Horizontal Middle
-        if board.hashBoard[0] == board.hashBoard[2] and board.hashBoard[0] == board.player:
-            if board.hashBoard[1] != board.cpu:
-                return True, 1
-        if board.hashBoard[3] == board.hashBoard[5] and board.hashBoard[3] == board.player:
-            if board.hashBoard[4] != board.cpu:
-                return True, 4
-        if board.hashBoard[6] == board.hashBoard[8] and board.hashBoard[6] == board.player:
-            if board.hashBoard[7] != board.cpu:
-                return True, 7
-
-        ## Vertical
-        if board.hashBoard[0] == board.hashBoard[3] and board.hashBoard[0] == board.player:
-            if board.hashBoard[6] != board.cpu:
-                return True, 6
-        if board.hashBoard[1] == board.hashBoard[4] and board.hashBoard[1] == board.player:
-            if board.hashBoard[7] != board.cpu:
-                return True, 7
-        if board.hashBoard[2] == board.hashBoard[5] and board.hashBoard[2] == board.player:
-            if board.hashBoard[8] != board.cpu:
-                return True, 8
-
-        ## Vertical Inverse
-        if board.hashBoard[6] == board.hashBoard[3] and board.hashBoard[6] == board.player:
-            if board.hashBoard[0] != board.cpu:
-                return True, 0
-        if board.hashBoard[7] == board.hashBoard[4] and board.hashBoard[7] == board.player:
-            if board.hashBoard[1] != board.cpu:
-                return True, 1
-        if board.hashBoard[8] == board.hashBoard[5] and board.hashBoard[8] == board.player:
-            if board.hashBoard[2] != board.cpu:
-                return True, 2
-
-        ## Vertical Middle
-        if board.hashBoard[0] == board.hashBoard[6] and board.hashBoard[0] == board.player:
-            if board.hashBoard[3] != board.cpu:
-                return True, 3
-        if board.hashBoard[1] == board.hashBoard[7] and board.hashBoard[1] == board.player:
-            if board.hashBoard[4] != board.cpu:
-                return True, 4
-        if board.hashBoard[2] == board.hashBoard[8] and board.hashBoard[2] == board.player:
-            if board.hashBoard[5] != board.cpu:
-                return True, 5
-        
-
-        ## Diagonal
-        if board.hashBoard[0] == board.hashBoard[4] and board.hashBoard[0] == board.player:
-            if board.hashBoard[8] != board.cpu:
-                return True, 8
-        if board.hashBoard[2] == board.hashBoard[4] and board.hashBoard[2] == board.player:
-            if board.hashBoard[6] != board.cpu:            
-                return True, 6
-
-        ## Diagonal Inverse
-        if board.hashBoard[8] == board.hashBoard[4] and board.hashBoard[8] == board.player:
-            if board.hashBoard[0] != board.cpu:
-                return True, 0
-        if board.hashBoard[6] == board.hashBoard[4] and board.hashBoard[6] == board.player:
-            if board.hashBoard[2] != board.cpu:            
-                return True, 2
-
-        ## Diagonal Middle
-        if board.hashBoard[0] == board.hashBoard[8] and board.hashBoard[0] == board.player:
-            if board.hashBoard[4] != board.cpu:
-                return True, 4
-        if board.hashBoard[2] == board.hashBoard[6] and board.hashBoard[2] == board.player:
-            if board.hashBoard[4] != board.cpu:            
-                return True, 4
-
-        return False, ''
             
     def turn1(self, board):
         if board.hashBoard[4] == board.player: board.addInput(0, board.cpu)
