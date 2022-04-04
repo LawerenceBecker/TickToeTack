@@ -1,7 +1,6 @@
 
 class Board():
     def __init__(self):
-        print('### input all commands as 0,0 0,1 1,0 ...etc ###')
         
         self.hashBoard = [
             ' ', ' ', ' ',
@@ -43,7 +42,7 @@ class Board():
             self.playerTurn = False
             self.checkWins()
         else:
-            print('That position already has a mark in it')
+            raise Exception('That position already has a mark in it')
 
     def checkWins(self):
 

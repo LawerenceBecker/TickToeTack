@@ -37,9 +37,6 @@ class Game:
     
     def run(self):
         while True:
-            # print(f'\nTurn: {gameBoard.turnNum}')
-            # gameBoard.printBoard()
-
             
             for event in pg.event.get():
                 if event.type == pg.QUIT:
@@ -159,13 +156,6 @@ class Game:
                     self.message = f'Player {gameBoard.winner} Won!'
                     Buttons(self.sprites, (self.screen.get_width()/2)-110, 150, 'Yes', gameBoard, cpu, game)
                     Buttons(self.sprites, (self.screen.get_width()/2)-110, 370, 'No', gameBoard, cpu, game)
-                    # choice = input('Play again? (y/n) \n> ')
-                    # if choice.lower() == 'y':
-    
-                    
-                    # elif choice.lower() == 'n':
-                    #     print('Thanks for playing!')
-                    #     break
             
                 for _ in gameBoard.hashBoard:
                     if _ == ' ':
